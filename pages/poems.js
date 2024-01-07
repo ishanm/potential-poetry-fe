@@ -12,8 +12,9 @@ export default function PoemsPage() {
 
   const handleButtonClick = async () => {
     try {
-      const response = await axios.post('http://localhost:777/poem', {
+      const response = await axios.post('http://localhost:3000/poems', {
         prompt,
+        userId: '1',
       });
       setPoem(response.data.poem);
       setShowInput(false);
@@ -32,12 +33,21 @@ export default function PoemsPage() {
     <>
       {showInput ? (
         <div>
-          <input type="text" value={prompt} onChange={handleInputChange} />
-          <button onClick={handleButtonClick}>Turn Into Poem</button>
+          <div>
+            <input
+              type="text"
+              value={prompt}
+              onChange={handleInputChange}
+              style={{ width: '100%', height: '100px' }}
+            />
+          </div>
+          <div>
+            <button onClick={handleButtonClick}>Turn Into Poem</button>
+          </div>
         </div>
       ) : (
         <div>
-          <h1>Your poem is ready and published!</h1>
+          <h3>Your poem is ready and published!</h3>
           <p>{poem}</p>
           <button onClick={() => (window.location.href = '/published')}>
             See Published Poems
