@@ -6,6 +6,7 @@ export default function PoemsPage() {
   const [poem, setPoem] = useState(null);
   const [showInput, setShowInput] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null); // New state variable
 
   const handleInputChange = (event) => {
     setPrompt(event.target.value);
@@ -13,6 +14,7 @@ export default function PoemsPage() {
 
   const handleButtonClick = async () => {
     setIsLoading(true);
+    setError(null); // Reset the error message before making the API call
     try {
       const response = await axios.post('http://localhost:3000/poems', {
         prompt,
@@ -21,7 +23,7 @@ export default function PoemsPage() {
       setPoem(response.data.poem);
       setShowInput(false);
     } catch (error) {
-      console.error(error);
+      setError('Something went wrong. Please try again.'); // Set the error message when there is an error
     } finally {
       setIsLoading(false);
     }
@@ -43,12 +45,17 @@ export default function PoemsPage() {
               value={prompt}
               onChange={handleInputChange}
               style={{ width: '100%', height: '100px' }}
+              disabled={isLoading}
             />
           </div>
           <div>
-            <button onClick={handleButtonClick}>Turn Into Poem</button>
+            <button onClick={handleButtonClick} disabled={isLoading}>
+              Turn Into Poem
+            </button>
           </div>
-          {isLoading && <p>Generating poem...</p>}{' '}
+          {isLoading && <p>Generating poem...</p>}
+          {error && <p>{error}</p>}{' '}
+          {/* Conditionally render the error message */}
         </div>
       ) : (
         <div>
