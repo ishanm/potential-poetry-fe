@@ -20,11 +20,13 @@ export default function PoemsPage() {
     setError(null);
     try {
       const authToken = cookie.get('authToken');
-      // TODO: take from environment variable
-      const response = await axios.post('http://localhost:3000/poems', {
-        prompt,
-        authToken, // TODO: pass in the auth header instead
-      });
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_HOST}/poems`,
+        {
+          prompt,
+          authToken,
+        }
+      );
       setPoem(response.data.poem);
       setShowInput(false);
     } catch (error) {
@@ -43,32 +45,105 @@ export default function PoemsPage() {
   return (
     <>
       {showInput ? (
-        <div>
-          <div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '100vh',
+            backgroundColor: '#f5f5f5',
+          }}
+        >
+          <div style={{ marginBottom: '20px', width: '300px' }}>
             <input
               type="text"
               value={prompt}
               onChange={handleInputChange}
-              style={{ width: '100%', height: '100px' }}
+              style={{
+                width: '100%',
+                height: '100px',
+                padding: '10px',
+                fontSize: '1em',
+                border: '1px solid #ccc',
+                borderRadius: '4px',
+                boxShadow: '0 2px 5px rgba(0, 0, 0, 0.15)',
+              }}
               disabled={isLoading}
             />
           </div>
           <div>
-            <button onClick={handleButtonClick} disabled={isLoading}>
+            <button
+              onClick={handleButtonClick}
+              disabled={isLoading}
+              style={{
+                padding: '10px 20px',
+                fontSize: '1em',
+                backgroundColor: '#0070f3',
+                color: 'white',
+                border: 'none',
+                borderRadius: '5px',
+                cursor: 'pointer',
+              }}
+            >
               Turn Into Poem
             </button>
           </div>
           {isLoading && <p>Generating poem...</p>}
-          {error && <p>{error}</p>}{' '}
+          {error && <p>{error}</p>}
         </div>
       ) : (
-        <div>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '100vh',
+            backgroundColor: '#f5f5f5',
+          }}
+        >
           <h3>Your poem is ready and published!</h3>
-          <blockquote>{poem}</blockquote>
-          <button onClick={() => router.push('/published')}>
+          <blockquote
+            style={{
+              width: '60%',
+              padding: '20px',
+              fontSize: '1.2em',
+              borderLeft: '5px solid #0070f3',
+            }}
+          >
+            {poem}
+          </blockquote>
+          <button
+            onClick={() => router.push('/published')}
+            style={{
+              marginTop: '20px',
+              padding: '10px 20px',
+              fontSize: '1em',
+              backgroundColor: '#0070f3',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+          >
             See Published Poems
           </button>
-          <button onClick={handleNewPoemClick}>New Poem</button>
+          <button
+            onClick={handleNewPoemClick}
+            style={{
+              marginTop: '20px',
+              padding: '10px 20px',
+              fontSize: '1em',
+              backgroundColor: '#0070f3',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+          >
+            New Poem
+          </button>
         </div>
       )}
     </>
