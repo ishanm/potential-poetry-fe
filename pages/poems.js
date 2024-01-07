@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import cookie from 'js-cookie';
 
 export default function PoemsPage() {
   const [prompt, setPrompt] = useState('');
@@ -18,10 +19,11 @@ export default function PoemsPage() {
     setIsLoading(true);
     setError(null);
     try {
+      const userId = cookie.get('userId'); // Get the user id from the cookie
       // TODO: take from environment variable
       const response = await axios.post('http://localhost:3000/poems', {
         prompt,
-        userId: '1',
+        userId, // Use the user id in the API call
       });
       setPoem(response.data.poem);
       setShowInput(false);

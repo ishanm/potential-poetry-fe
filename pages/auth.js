@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import cookie from 'js-cookie';
 
 export default function SignupPage() {
   const [name, setName] = useState('');
@@ -19,7 +20,12 @@ export default function SignupPage() {
   const handleButtonClick = async () => {
     setIsLoading(true);
     try {
-      await axios.post('http://localhost:3000/users', { name, email });
+      const response = await axios.post('http://localhost:3000/users', {
+        name,
+        email,
+      });
+      const userId = response.data.id;
+      cookie.set('userId', userId);
       router.push('/poems');
     } catch (error) {
       console.error(error);

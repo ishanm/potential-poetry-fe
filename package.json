@@ -35,7 +35,8 @@
     "react-transition-group": "^4.4.1",
     "styled-components": "^5.2.1",
     "waait": "^1.0.5",
-    "axios": "^1.6.5"
+    "axios": "^1.6.5",
+    "js-cookie": "^2.2.1"
   },
   "devDependencies": {
     "@apollo/react-testing": "^4.0.0",
