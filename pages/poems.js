@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 export default function PoemsPage() {
   const [prompt, setPrompt] = useState('');
   const [poem, setPoem] = useState(null);
   const [showInput, setShowInput] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null); // New state variable
+  const [error, setError] = useState(null);
+  const router = useRouter();
 
   const handleInputChange = (event) => {
     setPrompt(event.target.value);
@@ -61,7 +63,7 @@ export default function PoemsPage() {
         <div>
           <h3>Your poem is ready and published!</h3>
           <blockquote>{poem}</blockquote>
-          <button onClick={() => (window.location.href = '/published')}>
+          <button onClick={() => router.push('/published')}>
             See Published Poems
           </button>
           <button onClick={handleNewPoemClick}>New Poem</button>
