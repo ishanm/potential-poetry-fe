@@ -14,8 +14,9 @@ export default function PoemsPage() {
 
   const handleButtonClick = async () => {
     setIsLoading(true);
-    setError(null); // Reset the error message before making the API call
+    setError(null);
     try {
+      // TODO: take from environment variable
       const response = await axios.post('http://localhost:3000/poems', {
         prompt,
         userId: '1',
@@ -23,7 +24,7 @@ export default function PoemsPage() {
       setPoem(response.data.poem);
       setShowInput(false);
     } catch (error) {
-      setError('Something went wrong. Please try again.'); // Set the error message when there is an error
+      setError('Something went wrong. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -55,7 +56,6 @@ export default function PoemsPage() {
           </div>
           {isLoading && <p>Generating poem...</p>}
           {error && <p>{error}</p>}{' '}
-          {/* Conditionally render the error message */}
         </div>
       ) : (
         <div>
