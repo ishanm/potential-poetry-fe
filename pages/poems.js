@@ -5,12 +5,14 @@ export default function PoemsPage() {
   const [prompt, setPrompt] = useState('');
   const [poem, setPoem] = useState(null);
   const [showInput, setShowInput] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (event) => {
     setPrompt(event.target.value);
   };
 
   const handleButtonClick = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.post('http://localhost:3000/poems', {
         prompt,
@@ -20,6 +22,8 @@ export default function PoemsPage() {
       setShowInput(false);
     } catch (error) {
       console.error(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -44,11 +48,12 @@ export default function PoemsPage() {
           <div>
             <button onClick={handleButtonClick}>Turn Into Poem</button>
           </div>
+          {isLoading && <p>Generating poem...</p>}{' '}
         </div>
       ) : (
         <div>
           <h3>Your poem is ready and published!</h3>
-          <p>{poem}</p>
+          <blockquote>{poem}</blockquote>
           <button onClick={() => (window.location.href = '/published')}>
             See Published Poems
           </button>
