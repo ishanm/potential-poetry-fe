@@ -27,8 +27,8 @@ export default function SignupPage() {
           email,
         }
       );
-      const userId = response.data.id;
-      cookie.set('userId', userId);
+      const { authToken } = response.data;
+      cookie.set('authToken', authToken);
       router.push('/poems');
     } catch (error) {
       console.error(error);
@@ -45,7 +45,6 @@ export default function SignupPage() {
         alignItems: 'center',
         justifyContent: 'center',
         minHeight: '100vh',
-        backgroundColor: '#f5f5f5',
       }}
     >
       <h1 style={{ marginBottom: '50px', fontSize: '2em', fontWeight: 'bold' }}>

@@ -52,9 +52,9 @@ export default function PoemsPage() {
             alignItems: 'center',
             justifyContent: 'center',
             minHeight: '100vh',
-            backgroundColor: '#f5f5f5',
           }}
         >
+          <h2 style={{ marginBottom: '10px' }}>Enter your thoughts here</h2>
           <div style={{ marginBottom: '20px', width: '300px' }}>
             <input
               type="text"
@@ -79,7 +79,7 @@ export default function PoemsPage() {
               style={{
                 padding: '10px 20px',
                 fontSize: '1em',
-                backgroundColor: '#0070f3',
+                backgroundColor: 'red',
                 color: 'white',
                 border: 'none',
                 borderRadius: '5px',
@@ -100,7 +100,6 @@ export default function PoemsPage() {
             alignItems: 'center',
             justifyContent: 'center',
             minHeight: '100vh',
-            backgroundColor: '#f5f5f5',
           }}
         >
           <h3>Your poem is ready and published!</h3>
@@ -120,7 +119,7 @@ export default function PoemsPage() {
               marginTop: '20px',
               padding: '10px 20px',
               fontSize: '1em',
-              backgroundColor: '#0070f3',
+              backgroundColor: 'red',
               color: 'white',
               border: 'none',
               borderRadius: '5px',
