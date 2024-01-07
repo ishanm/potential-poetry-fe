@@ -9,11 +9,11 @@ export default function PublishedPoems() {
   useEffect(() => {
     const fetchPoems = async () => {
       try {
-        const userId = cookie.get('userId'); // Get the user id from the cookie
+        const authToken = cookie.get('authToken');
         // TODO: Move host to environment variable
         const response = await axios.get(
-          `http://localhost:3000/poems/${userId}`
-        ); // Use the user id in the API call
+          `http://localhost:3000/poems/${authToken}` // TODO: pass in the auth header instead
+        );
 
         setPoems(response.data);
       } catch (error) {

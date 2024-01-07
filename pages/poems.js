@@ -19,11 +19,11 @@ export default function PoemsPage() {
     setIsLoading(true);
     setError(null);
     try {
-      const userId = cookie.get('userId'); // Get the user id from the cookie
+      const authToken = cookie.get('authToken');
       // TODO: take from environment variable
       const response = await axios.post('http://localhost:3000/poems', {
         prompt,
-        userId, // Use the user id in the API call
+        authToken, // TODO: pass in the auth header instead
       });
       setPoem(response.data.poem);
       setShowInput(false);

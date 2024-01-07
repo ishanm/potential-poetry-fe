@@ -20,12 +20,13 @@ export default function SignupPage() {
   const handleButtonClick = async () => {
     setIsLoading(true);
     try {
+      // TODO: take from environment variable
       const response = await axios.post('http://localhost:3000/users', {
         name,
         email,
       });
-      const userId = response.data.id;
-      cookie.set('userId', userId);
+      const authToken = response.data.token;
+      cookie.set('authToken', authToken);
       router.push('/poems');
     } catch (error) {
       console.error(error);
